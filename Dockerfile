@@ -10,4 +10,4 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 RUN pip install numpy --prefer-binary
 RUN pip install .
-RUN python icondetection/demo/demo.py
+ENTRYPOINT python icondetection/demo/server.py
