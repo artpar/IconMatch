@@ -139,21 +139,21 @@ def group_rects(cv_rects, min_x, max_x):
     return grouped_rects
 
 
-def canny_detection(gray_scale_image=None, **kwargs):
+def canny_detection(gray_scale_image=None, multiplier=2, contour_accuracy=3, min_threshold=100, **kwargs):
     """
     Run openCV Canny detection on a provided gray scale image. Return the polygons of canny contours and bounding
     rectangles.
     https://docs.opencv.org/3.4/da/d0c/tutorial_bounding_rects_circles.html
     """
 
-    multiplier = kwargs['multiplier'] if 'multiplier' in kwargs else 2
-    contour_accuracy = kwargs['contour_accuracy'] if 'multiplier' in kwargs else 3
-    min_threshold = kwargs['min_threshold'] if 'min_threshold' in kwargs else 100
+    # multiplier = kwargs['multiplier'] if 'multiplier' in kwargs else 2
+    # contour_accuracy = kwargs['contour_accuracy'] if 'multiplier' in kwargs else 3
+    # min_threshold = kwargs['min_threshold'] if 'min_threshold' in kwargs else 100
     max_threshold = int(min_threshold * multiplier)
 
     canny_output = cv.Canny(gray_scale_image, min_threshold, max_threshold)
 
-    _, contours, _ = cv.findContours(canny_output, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv.findContours(canny_output, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
 
     contours_poly = [None] * len(contours)
     bound_rect = [None] * len(contours)
